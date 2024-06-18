@@ -16,18 +16,19 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public MainWindow() => InitializeComponent();
+
+        private void Window_Activated(object sender, EventArgs e)
         {
-            InitializeComponent();
+            // Continue playing media if window is activated
+            mediaElement.Play();
         }
 
-        private void ButtonAddName_Click(object sender, RoutedEventArgs e)
+        private void Window_Deactivated(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtName.Text) && !lstNames.Items.Contains(txtName.Text))
-            {
-                lstNames.Items.Add(txtName.Text);
-                txtName.Clear();
-            }
+            // Pause playing if media is being played and window is deactivated
+            mediaElement.Pause();
         }
     }
 }
